@@ -1,6 +1,6 @@
 # backuptool
 
-A simple backup tool using the Docker engine for people who want to avoid messy backup shell scripts, weird crontabentries and other issues that come from non-containerized backups.  
+A simple backup tool using the Docker engine for people who want to avoid messy backup shell scripts, weird crontab entries and other issues that come from non-containerized backups.  
 All you need to take care of is providing a source and a target directory. 
 ## Configuration
 The default configuration creates daily backups in the target folder, named after the day they were created. The container also creates a symlink to the latest backup.  
@@ -23,6 +23,14 @@ If you want to adjust the backup frequency, you can "simply" execute:
 ```bash
 docker compose exec backuptool nano /crontab_configuration
 docker compose restart
+```
+
+To adjust the backup frequency, simply set the `BACKUP_FREQUENCY` variable in the compose file to a valid cron schedule expression:
+```yaml
+[...]
+    environment:
+      BACKUP_FREQUENCY: "0 12 * * 1"
+[...]
 ```
 ## Planned additions
 - Option to enable compression on the backups
